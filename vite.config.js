@@ -1,10 +1,11 @@
+// vite.config.js
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-  base: '/',  // Set base to root if deployed to root directory
+  base: '/',  // Ensure the base path is correct, especially if the app is deployed in a subfolder
   plugins: [react()],
   build: {
-    outDir: 'dist',  // Specify output directory
+    outDir: 'dist',  // Make sure the output goes into the 'dist' folder
   },
 });
