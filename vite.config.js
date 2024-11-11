@@ -1,10 +1,10 @@
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';  // Import the react plugin
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-  base: '/portfolio/',  // Adjust this to your actual Vercel deployment path
-  plugins: [react()],   // Use the react plugin
+  base: '/',  // Set base to root if deployed to root directory
+  plugins: [react()],
   build: {
-    outDir: 'dist'      // Ensure Vercel knows where to look for build output
+    outDir: 'dist',  // Specify output directory
   },
 });
