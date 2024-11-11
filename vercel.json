@@ -5,18 +5,18 @@
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist/subfolder"  
+        "distDir": "dist"  
       }
     }
   ],
   "routes": [
     {
-      "src": "/subfolder/assets/(.*)",  
-      "dest": "/subfolder/assets/$1"
+      "src": "/assets/(.*)",  
+      "dest": "/assets/$1"
     },
     {
-      "src": "/subfolder/(.*)",  
-      "dest": "/subfolder/index.html"  
+      "src": "/(.*)",  
+      "dest": "/index.html"  
     }
   ]
 }
