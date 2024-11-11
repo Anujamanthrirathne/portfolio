@@ -11,11 +11,11 @@
   ],
   "routes": [
     {
-      "src": "/subfolder/assets/(.*)",  
+      "src": "/subfolder/assets/(.*)",
       "dest": "/subfolder/assets/$1"
     },
     {
-      "src": "/subfolder/(.*)",  
+      "src": "/subfolder/(.*)",
       "dest": "/subfolder/index.html"  
     }
   ]

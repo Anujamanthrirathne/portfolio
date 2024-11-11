@@ -6,5 +6,13 @@ export default defineConfig({
   plugins: [react()],
   build: {
     outDir: 'dist/subfolder',  // Outputs files into `dist/subfolder`
+    rollupOptions: {
+      output: {
+        // Ensuring hashed file names for JS and CSS
+        entryFileNames: 'assets/index-[hash].js',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash][extname]'
+      }
+    }
   },
 });
