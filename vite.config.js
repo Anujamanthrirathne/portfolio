@@ -2,10 +2,10 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-  base: '/subfolder/',  // Ensure this matches your Vercel deployment subfolder
+  base: './',  // Use a relative base path
   plugins: [react()],
   build: {
-    outDir: 'dist/subfolder',  // Specify the output directory
+    outDir: 'dist',  // Direct output to 'dist'
     rollupOptions: {
       output: {
         entryFileNames: 'assets/index-[hash].js',  // Ensures hashed JS file name
@@ -13,5 +13,5 @@ export default defineConfig({
         assetFileNames: 'assets/[name]-[hash][extname]'  // Ensures asset file names are hashed
       }
     }
-  },
+  }
 });
