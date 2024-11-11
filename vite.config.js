@@ -2,15 +2,15 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-  base: './',  // Use a relative base path
+  base: './', // Use a relative base path
   plugins: [react()],
   build: {
-    outDir: 'dist',  // Direct output to 'dist'
+    outDir: 'dist', // Output directory is 'dist'
     rollupOptions: {
       output: {
-        entryFileNames: 'assets/index-[hash].js',  // Ensures hashed JS file name
-        chunkFileNames: 'assets/[name]-[hash].js',  // Ensures chunk JS file names
-        assetFileNames: 'assets/[name]-[hash][extname]'  // Ensures asset file names are hashed
+        entryFileNames: 'assets/index-[hash].js', // Ensure hashed JS file names
+        chunkFileNames: 'assets/[name]-[hash].js', // Ensure chunk JS file names
+        assetFileNames: 'assets/[name]-[hash][extname]' // Ensure asset file names are hashed
       }
     }
   }

@@ -11,12 +11,7 @@ import {
 import CanvasLoader from "../Loader";
 
 const Ball = (props) => {
-  const [decal, decalError] = useTexture([props.imgUrl]);
-
-  if (decalError) {
-    console.error("Failed to load texture:", props.imgUrl);
-    // You can provide a fallback texture here or handle the error gracefully
-  }
+  const [decal] = useTexture([props.imgUrl]);
 
   return (
     <Float speed={1.75} rotationIntensity={1} floatIntensity={2}>
@@ -25,21 +20,18 @@ const Ball = (props) => {
       <mesh castShadow receiveShadow scale={2.75}>
         <icosahedronGeometry args={[1, 1]} />
         <meshStandardMaterial
-          color="#fff8eb"
+          color='#fff8eb'
           polygonOffset
           polygonOffsetFactor={-5}
           flatShading
         />
-        {/* Ensure decal is only rendered if the texture loads correctly */}
-        {decal && (
-          <Decal
-            position={[0, 0, 1]}
-            rotation={[2 * Math.PI, 0, 6.25]}
-            scale={1}
-            map={decal}
-            flatShading
-          />
-        )}
+        <Decal
+          position={[0, 0, 1]}
+          rotation={[2 * Math.PI, 0, 6.25]}
+          scale={1}
+          map={decal}
+          flatShading
+        />
       </mesh>
     </Float>
   );
@@ -48,10 +40,9 @@ const Ball = (props) => {
 const BallCanvas = ({ icon }) => {
   return (
     <Canvas
-      frameloop="demand"
+      frameloop='demand'
       dpr={[1, 2]}
       gl={{ preserveDrawingBuffer: true }}
-      camera={{ position: [0, 0, 5], fov: 40 }} // Adjust the camera as needed
     >
       <Suspense fallback={<CanvasLoader />}>
         <OrbitControls enableZoom={false} />
