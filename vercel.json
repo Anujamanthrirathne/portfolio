@@ -16,7 +16,7 @@
     },
     {
       "src": "/subfolder/(.*)",
-      "dest": "/subfolder/index.html"  
+      "dest": "/subfolder/index.html"
     }
   ]
 }
