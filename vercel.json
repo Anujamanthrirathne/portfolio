@@ -11,8 +11,8 @@
   ],
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "/index.html"  
+      "src": "/subfolder/(.*)",   
+      "dest": "/subfolder/index.html"  
     }
   ]
 }
