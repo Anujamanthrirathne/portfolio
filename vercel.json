@@ -4,19 +4,11 @@
     {
       "src": "package.json",
       "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist" 
-      }
+      "config": { "distDir": "dist" }
     }
   ],
   "routes": [
-    {
-      "src": "/desktop_pc/(.*)",
-      "dest": "/desktop_pc/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
+    { "src": "/desktop_pc/(.*)", "dest": "/desktop_pc/$1" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
