@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   build: {
-    outDir: 'dist', // Ensure this matches the `distDir` in vercel.json
+    outDir: 'dist', // Make sure this matches the Vercel `distDir` setting
     rollupOptions: {
       output: {
         entryFileNames: 'assets/[name]-[hash].js',
