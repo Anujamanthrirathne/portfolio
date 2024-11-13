@@ -1,68 +1,41 @@
-import { useEffect, useRef } from 'react';
-import { BrowserRouter } from "react-router-dom";
-import { Scene, PerspectiveCamera, WebGLRenderer } from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Suspense, lazy } from "react";
 
-import { About, Contact, Experience, Feedbacks, Hero, Navbar, Tech, Works, StarsCanvas } from "./components";
+// Lazy load components to improve performance
+const About = lazy(() => import("./components/About"));
+const Contact = lazy(() => import("./components/Contact"));
+const Experience = lazy(() => import("./components/Experience"));
+const Feedbacks = lazy(() => import("./components/Feedbacks"));
+const Hero = lazy(() => import("./components/Hero"));
+const Navbar = lazy(() => import("./components/Navbar"));
+const Tech = lazy(() => import("./components/Tech"));
+const Works = lazy(() => import("./components/Works"));
+const StarsCanvas = lazy(() => import("./components/canvas/Stars"));
 
 const App = () => {
-  const sceneRef = useRef();
-
-  useEffect(() => {
-    // Setup the basic Three.js scene
-    const scene = new Scene();
-    const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
-
-    // Load the .gltf model
-    const loader = new GLTFLoader();
-    loader.load('/assets/desktop_pc/scene.gltf', (gltf) => {
-      // Check geometry for NaN values
-      const geometry = gltf.scene.children[0].geometry;
-      geometry.attributes.position.array.forEach((val, idx) => {
-        if (isNaN(val)) {
-          console.error(`NaN value found at index ${idx}`);
-        }
-      });
-
-      scene.add(gltf.scene);
-      render();
-    }, undefined, (error) => {
-      console.error('Error loading .gltf file:', error);
-    });
-
-    const render = () => {
-      renderer.render(scene, camera);
-      requestAnimationFrame(render);
-    };
-
-    // Cleanup on unmount
-    return () => {
-      if (sceneRef.current) {
-        sceneRef.current.remove();
-      }
-    };
-  }, []);
-
   return (
     <BrowserRouter>
-      <div className="relative z-0 bg-primary">
-        <div className="bg-hero-pattern bg-cover bg-no-repeat bg-center">
-          <Navbar />
-          <Hero />
+      <Suspense fallback={<div>Loading...</div>}>
+        <div className="relative z-0 bg-primary">
+          <div className="bg-hero-pattern bg-cover bg-no-repeat bg-center">
+            <Navbar />
+            <Hero />
+          </div>
+
+          <Routes>
+            <Route path="/" element={<About />} />
+            <Route path="/experience" element={<Experience />} />
+            <Route path="/tech" element={<Tech />} />
+            <Route path="/works" element={<Works />} />
+            <Route path="/feedbacks" element={<Feedbacks />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+
+          <div className="relative z-0">
+            <StarsCanvas />
+          </div>
         </div>
-        <About />
-        <Experience />
-        <Tech />
-        <Works />
-        <Feedbacks />
-        <div className="relative z-0">
-          <Contact />
-          <StarsCanvas />
-        </div>
-      </div>
+      </Suspense>
     </BrowserRouter>
   );
 };
