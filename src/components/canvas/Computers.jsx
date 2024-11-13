@@ -1,17 +1,18 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
+import CanvasLoader from "../Loader"; // Ensure that CanvasLoader is defined properly
 
-import CanvasLoader from "../Loader";
-
+// Component to load and display the 3D model
 const Computers = ({ isMobile }) => {
-  const computer = useGLTF("./desktop_pc/scene.gltf");
+  // Update the path to the correct location within the public directory
+  const { scene } = useGLTF("/desktop_pc/scene.gltf"); // Path to the 3D model inside the public folder
 
   return (
     <mesh>
       <hemisphereLight intensity={0.15} groundColor='black' />
       <spotLight
-        position={[-20, 50, 10]}
+        position={[-20, 50, 10]}  // Set lighting for better model visibility
         angle={0.12}
         penumbra={1}
         intensity={1}
@@ -19,35 +20,32 @@ const Computers = ({ isMobile }) => {
         shadow-mapSize={1024}
       />
       <pointLight intensity={1} />
+      {/* Render the loaded scene with adjustments for scale, position, and rotation */}
       <primitive
-        object={computer.scene}
-        scale={isMobile ? 0.7 : 0.75}
-        position={isMobile ? [0, -3, -2.2] : [0, -3.25, -1.5]}
-        rotation={[-0.01, -0.2, -0.1]}
+        object={scene}
+        scale={isMobile ? 0.7 : 0.75}  // Adjust scale based on mobile or desktop
+        position={isMobile ? [0, -3, -2.2] : [0, -3.25, -1.5]}  // Adjust position
+        rotation={[-0.01, -0.2, -0.1]}  // Adjust rotation
       />
     </mesh>
   );
 };
 
+// Component to set up the canvas and manage screen size for mobile
 const ComputersCanvas = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Add a listener for changes to the screen size
     const mediaQuery = window.matchMedia("(max-width: 500px)");
-
-    // Set the initial value of the `isMobile` state variable
     setIsMobile(mediaQuery.matches);
 
-    // Define a callback function to handle changes to the media query
     const handleMediaQueryChange = (event) => {
       setIsMobile(event.matches);
     };
 
-    // Add the callback function as a listener for changes to the media query
     mediaQuery.addEventListener("change", handleMediaQueryChange);
 
-    // Remove the listener when the component is unmounted
+    // Cleanup function to remove media query listener when component unmounts
     return () => {
       mediaQuery.removeEventListener("change", handleMediaQueryChange);
     };
@@ -57,20 +55,20 @@ const ComputersCanvas = () => {
     <Canvas
       frameloop='demand'
       shadows
-      dpr={[1, 2]}
-      camera={{ position: [20, 3, 5], fov: 25 }}
-      gl={{ preserveDrawingBuffer: true }}
+      dpr={[1, 2]}  // Set device pixel ratio for high-DPI devices
+      camera={{ position: [20, 3, 5], fov: 25 }}  // Camera settings for better view
+      gl={{ preserveDrawingBuffer: true }}  // Ensures correct rendering when saving images
     >
+      {/* Suspense to show loading spinner (CanvasLoader) while model is being loaded */}
       <Suspense fallback={<CanvasLoader />}>
-        <OrbitControls
-          enableZoom={false}
-          maxPolarAngle={Math.PI / 2}
-          minPolarAngle={Math.PI / 2}
+        <OrbitControls 
+          enableZoom={false}  // Disable zoom for better control
+          maxPolarAngle={Math.PI / 2}  // Limit vertical movement
+          minPolarAngle={Math.PI / 2}  // Limit vertical movement
         />
-        <Computers isMobile={isMobile} />
+        <Computers isMobile={isMobile} />  {/* Display the 3D model */}
       </Suspense>
-
-      <Preload all />
+      <Preload all />  {/* Preload all assets */}
     </Canvas>
   );
 };
