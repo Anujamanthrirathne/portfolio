@@ -10,7 +10,13 @@
     }
   ],
   "routes": [
-   
-    { "src": "/(.*)", "dest": "/public/$1" }
+    {
+      "src": "/desktop_pc/(.*)",
+      "dest": "/desktop_pc/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
   ]
 }
