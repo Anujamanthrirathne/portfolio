@@ -5,7 +5,7 @@
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist"  
+        "distDir": "dist"
       }
     }
   ],
@@ -13,6 +13,10 @@
     {
       "src": "/assets/(.*)",
       "dest": "/assets/$1"
+    },
+    {
+      "src": "/desktop_pc/(.*)",
+      "dest": "/desktop_pc/$1"
     },
     {
       "src": "/(.*)",
