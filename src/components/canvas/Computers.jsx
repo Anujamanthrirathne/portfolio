@@ -6,7 +6,7 @@ import CanvasLoader from "../Loader"; // Ensure that CanvasLoader is defined pro
 // Component to load and display the 3D model
 const Computers = ({ isMobile }) => {
   // Update the path to the correct location within the public directory
-  const { scene } = useGLTF("/desktop_pc/scene.gltf"); // Path to the 3D model inside the public folder
+  const { scene } = useGLTF("dist/desktop_pc/scene.gltf"); // Path to the 3D model inside the public folder
 
   return (
     <mesh>
