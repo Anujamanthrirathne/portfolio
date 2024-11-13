@@ -19,6 +19,10 @@
       "dest": "/desktop_pc/$1"
     },
     {
+      "src": "/planet/(.*)",
+      "dest": "/public/planet/$1"   
+    },
+    {
       "src": "/(.*)",
       "dest": "/index.html"
     }
