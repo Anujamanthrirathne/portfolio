@@ -1,4 +1,5 @@
-// Temporary: Replace lazy loading with normal imports
+// Import necessary components from React Router and your other components
+import { BrowserRouter } from "react-router-dom";
 import About from './components/About';
 import Contact from './components/Contact';
 import Experience from './components/Experience';
